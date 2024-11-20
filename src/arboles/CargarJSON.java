@@ -14,12 +14,19 @@ import javax.swing.filechooser.FileFilter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerPipe;
+
+import javax.swing.*;
+import org.graphstream.graph.Graph;
 
 /**
  *
  * @author dugla
  */
 public class CargarJSON extends javax.swing.JFrame {
+    
+
 
     /**
      * Creates new form Pestana
@@ -39,6 +46,12 @@ public class CargarJSON extends javax.swing.JFrame {
         }
         return name.substring(lastIndex + 1);
     }
+    
+    
+    
+    //igual aca recordar cambiar
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,14 +104,14 @@ public class CargarJSON extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -158,7 +171,21 @@ public class CargarJSON extends javax.swing.JFrame {
     private void BSiguienteVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSiguienteVentanaActionPerformed
         // TODO add your handling code here:
         String guardarArbol = MostrarJSON.getText();
+        JOptionPane.showMessageDialog(rootPane, "Bienvenido, pasemos a la siguiente ventana");
         
+        FamilyTreeBuilder builder = new FamilyTreeBuilder();
+    
+    // Construir el árbol a partir del JSON
+        Tree familyTree = builder.buildTree(guardarArbol);
+
+        // Mostrar el árbol en preorden
+        if (familyTree.getRaiz() != null) {
+            System.out.println(familyTree.preorder(familyTree.getRoot()));
+            familyTree.mostrarArbol();
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El árbol está vacío o no se pudo construir.");
+        }       
     }//GEN-LAST:event_BSiguienteVentanaActionPerformed
 
     /**

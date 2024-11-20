@@ -1,84 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+
+
 package arboles;
 
-/**
- *
- * @author dugla
- */
+
+
+
 public class Nodo {
     
-    private Nodo sib;
-    private Nodo son;
-    private int data;
-    
-    public Nodo(int data){
-        this.data = data;
-        this.sib = null;
-        this.son = null;
-        
-    }
-    
-    
-    public void addSon(Nodo newSon){
-        if (getSon() != null){
-            Nodo temp = getSon();
-            Nodo sib = temp;
-            while(temp != null){
-                sib = temp;
-                temp = temp.getSib();
-                
-            }
-            sib.setSib(newSon);
-            
-        }else{
-            setSon(newSon);
-        }
+    private MiembroFamilia miembro;
+    private Nodo hijo; // Referencia al primer hijo
+    private Nodo hermano; // Referencia al siguiente hermano
+
+    public Nodo(MiembroFamilia miembro) {
+        this.miembro = miembro;
+        this.hijo = null;
+        this.hermano = null;
     }
 
-    /**
-     * @return the sib
-     */
-    public Nodo getSib() {
-        return sib;
+    public MiembroFamilia getMiembro() {
+        return miembro;
     }
 
-    /**
-     * @param sib the sib to set
-     */
-    public void setSib(Nodo sib) {
-        this.sib = sib;
+    public Nodo getHijo() {
+        return hijo;
     }
 
-    /**
-     * @return the son
-     */
-    public Nodo getSon() {
-        return son;
+    public Nodo getHermano() {
+        return hermano;
     }
 
-    /**
-     * @param son the son to set
-     */
-    public void setSon(Nodo son) {
-        this.son = son;
+    public void setHijo(Nodo hijo) {
+        this.hijo = hijo;
     }
 
-    /**
-     * @return the data
-     */
-    public Object getData() {
-        return data;
+    public void setHermano(Nodo hermano) {
+        this.hermano = hermano;
     }
-
-    /**
-     * @param data the data to set
-     */
-    public void setData(int data) {
-        this.data = data;
-    }
-    
-    
 }
