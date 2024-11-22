@@ -8,14 +8,30 @@ package arboles;
 
 public class Nodo {
     
-    private MiembroFamilia miembro;
-    private Nodo hijo; // Referencia al primer hijo
-    private Nodo hermano; // Referencia al siguiente hermano
+    public MiembroFamilia miembro;
+    public Nodo hijo; // Referencia al primer hijo
+    public Nodo hermano; // Referencia al siguiente hermano
 
     public Nodo(MiembroFamilia miembro) {
         this.miembro = miembro;
         this.hijo = null;
         this.hermano = null;
+    }
+    
+    
+    public void addsonsito(Nodo newson){
+        if(getHijo() != null){
+            Nodo temp = getHijo();
+            Nodo sib = temp;
+            while (temp != null){
+            sib = temp;
+            temp = temp.getHermano();
+            
+        }
+            sib.setHermano(newson);
+        }else{
+            setHijo(newson);
+        }
     }
 
     public MiembroFamilia getMiembro() {
@@ -37,4 +53,8 @@ public class Nodo {
     public void setHermano(Nodo hermano) {
         this.hermano = hermano;
     }
+    
+    
+    
+    
 }

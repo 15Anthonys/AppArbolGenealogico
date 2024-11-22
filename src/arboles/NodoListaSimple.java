@@ -13,11 +13,7 @@ public class NodoListaSimple {
     private NodoListaSimple pNext; 
     private String nombrehijo;
     
-    /**
-     * Constructor de la clase Nodo de lista simple correspondiente
-     * @author Anthony Caldera
-     * @param estacion para el constructor de la clase
-     */
+    
 
     public NodoListaSimple(String nombrehijo) {
         this.nombrehijo = nombrehijo;

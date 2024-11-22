@@ -60,11 +60,7 @@ public class ListaSimple {
         this.size = size;
     }
 
-    /**
-     * Primitiva para agregar un elemento al principio de la lista
-     * @author Anthony Caldera
-     * @param estacion para agregar la estacion al inicio
-     */
+    
     
     
     public void agregar(String nombrehijo) {
@@ -83,11 +79,29 @@ public class ListaSimple {
         NodoListaSimple nodoActual = head;
         
         while (nodoActual != null) {
-            System.out.print(nodoActual.getNombrehijo() + " "); // Asumiendo que getEstacion() devuelve una representación adecuada
-            nodoActual = nodoActual.getpNext(); // Mover al siguiente nodo
+            System.out.print(nodoActual.getNombrehijo() + " "); 
+            nodoActual = nodoActual.getpNext(); 
         }
         
-        System.out.println(); // Nueva línea al final
+        System.out.println(); 
+    }
+    
+    public String impresora(){
+        String vacio = "";
+        if (head == null){
+            
+            return "No hay hijos para este miembro";
+        }
+        
+        NodoListaSimple noditoactual = head;
+        
+        while(noditoactual != null){
+            vacio += noditoactual.getNombrehijo() + ", ";
+            noditoactual = noditoactual.getpNext();
+        }
+        
+        return vacio;
+        
     }
     
 }

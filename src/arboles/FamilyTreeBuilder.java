@@ -8,72 +8,83 @@ package arboles;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 /**
  *
  * @author dugla
  */
 public class FamilyTreeBuilder {
     
-    private Map<String, MiembroFamilia> memberMap = new HashMap<>();
+   
     
-   public Tree buildTree(String jsonString) {
+   public Tree buildTree(String jsonString, Hash_Table tabla_hash) {
     JSONObject json = new JSONObject(jsonString);
     String houseName = json.keys().next();
     JSONArray houseMembers = json.getJSONArray(houseName);
-    MiembroFamilia raiz = null;
+    Tree familyTree = new Tree();
+    
+    
 
-    // Crear la raíz
+    
     for (int i = 0; i < houseMembers.length(); i++) {
         JSONObject member = houseMembers.getJSONObject(i);
         for (String memberName : member.keySet()) {
             JSONArray attributes = member.getJSONArray(memberName);
             MiembroFamilia newMember = createMember(memberName, attributes);
-            if (raiz == null) {
-                raiz = newMember;
+            
+            if (familyTree.getRaiz() == null) {
+                familyTree.CrearRaiz(newMember);
+                tabla_hash.insertar(newMember.getNombre() + " " + newMember.getSobrenombre(), newMember);
             }
+            
+            
         }
     }
 
-    Nodo raizNodo = new Nodo(raiz);
-    Tree familyTree = new Tree(raizNodo);
+    
+    
 
-    // Procesar nuevamente para establecer relaciones
+    
     for (int i = 0; i < houseMembers.length(); i++) {
         JSONObject member = houseMembers.getJSONObject(i);
         for (String memberName : member.keySet()) {
+            
+            if (familyTree.getRaiz().getMiembro().getNombre() != memberName){
             JSONArray attributes = member.getJSONArray(memberName);
             MiembroFamilia newMember = createMember(memberName, attributes);
             Nodo hijoNodo = new Nodo(newMember);
             // Llamar a ElModificador para establecer las relaciones
-            ElModificador(familyTree.getRoot(), hijoNodo, familyTree);
+            ElModificador(familyTree.getRoot(), hijoNodo, familyTree, tabla_hash);
+            tabla_hash.insertar(newMember.getNombre() + " " + newMember.getSobrenombre(), newMember);
+        }
         }
     }
+    
+    tabla_hash.imprimir();
 
-    return familyTree; // Retornar el árbol de la casa
+    return familyTree; 
 }
 
-    public void ElModificador(Nodo padre, Nodo hijo, Tree familyTree) {
-        
+    public void ElModificador(Nodo padre, Nodo hijo, Tree familyTree, Hash_Table tabla_hash) {
     String elPapa = hijo.getMiembro().getPadre();
     
-    // Crear el nombre completo del padre para la comparación
+    
     String nombreCompletoPadre = padre.getMiembro().getNombre() + ", " + padre.getMiembro().getSobrenombre() + " of his name";
+    
 
-    // Verificar si el padre del hijo coincide con el nombre, mote o sobrenombre del padre
+    
     if (padre.getMiembro().getNombre().equals(elPapa) || padre.getMiembro().getMote().equals(elPapa) || nombreCompletoPadre.equals(elPapa)) {
+        System.out.println(nombreCompletoPadre);
+        familyTree.insert(hijo.getMiembro(), padre);
         
-        
-        familyTree.agregarHijo(padre, hijo);
     } else {
-        // Si no coincide, buscar en todos los hijos de este nodo
+       
         Nodo hijoActual = padre.getHijo();
         while (hijoActual != null) {
-            ElModificador(hijoActual, hijo, familyTree); // Llamar recursivamente
-            hijoActual = hijoActual.getHermano(); // Mover al siguiente hermano
+            ElModificador(hijoActual, hijo, familyTree, tabla_hash); 
+            hijoActual = hijoActual.getHermano(); 
         }
     }
+    
 }
 
 
@@ -97,14 +108,12 @@ public class FamilyTreeBuilder {
             sobrenombre = attribute.getString("Of his name");
         }
         
-        
-        
         if (attribute.has("Born to")) {
             String parents = attribute.getString("Born to");
             if (bornToFather == null) {
-                bornToFather = parents; // Guardar padre
+                bornToFather = parents; 
             } else {
-                bornToMother = parents; // Guardar madre
+                bornToMother = parents; 
             }
         }
         
@@ -127,7 +136,7 @@ public class FamilyTreeBuilder {
         if (attribute.has("Father to")) {
             JSONArray fatherToArray = attribute.getJSONArray("Father to");
             for (int k = 0; k < fatherToArray.length(); k++) {
-                children.agregar(fatherToArray.getString(k)); // Agregar hijos
+                children.agregar(fatherToArray.getString(k)); 
             }
         }
         if (attribute.has("Notes")) {
@@ -138,8 +147,8 @@ public class FamilyTreeBuilder {
         }
     }
 
-    // Crear y retornar el objeto MiembroFamilia
-    return new MiembroFamilia(memberName,sobrenombre, bornToFather, bornToMother, motes,  title, wedTo, eyesColor, hairColor, children, notes, fate);
+    
+    return new MiembroFamilia(memberName, sobrenombre, bornToFather, bornToMother, motes, title, wedTo, eyesColor, hairColor, children, notes, fate);
 }
 
 }

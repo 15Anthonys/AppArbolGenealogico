@@ -4,12 +4,13 @@
  */
 package arboles;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dugla
  */
-public class MiembroFamilia {
-    
+public class MiembroFamilia { 
     private String nombre;
     private String sobrenombre;
     private String padre;
@@ -22,7 +23,8 @@ public class MiembroFamilia {
     private String colorojos;
     private String colorcabello;
     private String fate;
-//memberName,sobrenombre, bornToFather, bornToMother, motes,  title, wedTo, eyesColor, hairColor, children, notes, fate
+    
+
     public MiembroFamilia(String nombre, String sobrenombre, String padre, String madre, String mote, String titulonobilario, String esposa, String colorojos, String colorcabello, ListaSimple hijos, String notes, String fate) {
         this.nombre = nombre;
         this.sobrenombre = sobrenombre;
@@ -36,12 +38,32 @@ public class MiembroFamilia {
         this.colorojos = colorojos;
         this.colorcabello = colorcabello;
         this.fate = fate;
+        
+    }
+    
+    
+    public void mostrarInformacionMiembro(MiembroFamilia miembro) {
+        String hijos = miembro.getHijos().impresora();
+        String info = "Nombre: " + miembro.getNombre() + "\n" +
+                      "Sobrenombre: " + miembro.getSobrenombre() + "\n" +
+                      "Padre: " + miembro.getPadre() + "\n" +
+                      "Madre: " + miembro.getMadre() + "\n" +
+                      "Mote: " + miembro.getMote() + "\n" +
+                      "Esposa: " + miembro.getEsposa() + "\n" +
+                      "Título Nobilario: " + miembro.getTitulonobilario() + "\n" +
+                      "Notas: " + miembro.getNotes() + "\n" +
+                      "Color de Ojos: " + miembro.getColorojos() + "\n" +
+                      "Color de Cabello: " + miembro.getColorcabello() + "\n" +
+                      "Destino: " + miembro.getFate() + "\n" +
+                      "Hijos: " + hijos;
+
+        JOptionPane.showMessageDialog(null, info, "Información del Miembro", JOptionPane.INFORMATION_MESSAGE);
     }
     
     
     
     public void agregarHijo(String hijo) {
-        hijos.agregar(hijo); // Use the modified agregar method
+        hijos.agregar(hijo); 
     }
 
     /**

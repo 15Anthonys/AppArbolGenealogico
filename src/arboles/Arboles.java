@@ -17,13 +17,7 @@ public class Arboles {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        // Crear el árbol
         
-        
-        
-
-        // Crear la raíz
  
         
     }

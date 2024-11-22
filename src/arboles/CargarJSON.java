@@ -174,18 +174,22 @@ public class CargarJSON extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Bienvenido, pasemos a la siguiente ventana");
         
         FamilyTreeBuilder builder = new FamilyTreeBuilder();
+        
+        Hash_Table tabla_hash = new Hash_Table(10111);
     
-    // Construir el árbol a partir del JSON
-        Tree familyTree = builder.buildTree(guardarArbol);
-
-        // Mostrar el árbol en preorden
-        if (familyTree.getRaiz() != null) {
-            System.out.println(familyTree.preorder(familyTree.getRoot()));
-            familyTree.mostrarArbol();
+    
+        Tree familyTree = builder.buildTree(guardarArbol, tabla_hash);
+        
+        familyTree.mostrarArbol();
+        
+        
+        
+        
+        
             
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "El árbol está vacío o no se pudo construir.");
-        }       
+            
+            
+             
     }//GEN-LAST:event_BSiguienteVentanaActionPerformed
 
     /**
